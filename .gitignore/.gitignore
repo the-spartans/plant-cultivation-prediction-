@@ -1,0 +1,93 @@
+
+Conversation opened. 1 read message.
+
+Skip to content
+Using Gmail with screen readers
+1 of 426
+(no subject)
+Inbox
+	x
+Charu Siva <charusiva18@gmail.com>
+	
+Attachments10:24 AM (0 minutes ago)
+	
+to Anjali, dhivya, me
+
+Attachments area
+	
+	
+	
+
+import numpy as np
+import pandas as pd
+import scipy.stats as stats
+import matplotlib.pyplot as plt
+import sklearn
+
+crop_csv='Book_MaduraiData.csv'
+crop_column = ['District_Name','Season','Crop','Production','Rainfall requirement(mm)/12','Preferrable month']
+crops=pd.read_csv(crop_csv,sep=';',names=crop_column,header=None)
+crops
+
+from sklearn.preprocessing import Imputer
+crops_X = crops[[ 'Season' ,'Crop' ]]
+crops_Y = crops['Preferrable month']
+
+#One Hot Encoding for handling categorical data. In our features selected 'Make' is the categorical data
+from sklearn.preprocessing import LabelEncoder
+encoder = LabelEncoder()
+season = crops_X ['Season']
+season_encoded = encoder.fit_transform(season)
+season_encoded
+crpps = crops_X ['Crop']
+crpps_encoded = encoder.fit_transform(crpps)
+crpps_encoded
+
+
+# One hot encoder for handling categorical data 'Make'
+from sklearn.preprocessing import OneHotEncoder
+encoder = OneHotEncoder()
+season_one_hot = encoder.fit_transform(season_encoded.reshape(-1,1))
+crops_X['Season'] = season_one_hot.toarray()[:205]
+
+crpps_one_hot = encoder.fit_transform(crpps_encoded.reshape(-1,1))
+
+#Predict Model with testing data set
+y_pred = classifier.predict(X_test)
+y_pred
+
+
+
+#Prediction Report
+from sklearn import metrics
+def measure_performance(X,y,classifier, show_accuracy=True, show_classification_report=True, show_confusion_matrix=True):
+    y_pred=classifier.predict(X)   
+    if show_accuracy:
+        print ("Accuracy:{0:.3f}".format(metrics.accuracy_score(y,y_pred)),"\n")
+
+    if show_classification_report:
+        print ("Classification report")
+        print (metrics.classification_report(y,y_pred),"\n")
+        
+    if show_confusion_matrix:
+        print ("Confusion matrix")
+        print (metrics.confusion_matrix(y,y_pred),"\n")
+        
+#measure_performance(X_train,y_train,classifier, show_classification_report=True, show_confusion_matrix=True)
+measure_performance(X_test,y_test,classifier, show_classification_report=True, show_confusion_matrix=True)
+
+
+
+# Training our model
+from sklearn.tree import DecisionTreeClassifier  
+classifier = DecisionTreeClassifier()  
+classifier.fit(X_train, y_train)
+crpps_one_hot.toarray()[:205]
+crops_X['Crop'] = crpps_one_hot.toarray()[:205]
+
+#Split data into training and Testing data set. Ratio is 70:30
+from sklearn.model_selection import train_test_split  
+X_train, X_test, y_train, y_test = train_test_split(crops_X, crops_Y, test_size=0.30) 
+
+spartans.txt
+Displaying spartans.txt.
